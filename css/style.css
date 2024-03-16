@@ -1,0 +1,832 @@
+@charset 'utf-8';
+
+/* リセット */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* スタイル登録 */
+:root {
+    --primary:#0f773f;
+    --secondary: #6a401a;
+    --text: #534839;
+    --line: #EADFCA;
+}
+
+/* ＝＝＝↓共通設定↓＝＝＝ */
+body {
+    font-family: "Noto Sans JP", sans-serif;
+    color: var(--text);
+    letter-spacing: 2px;
+}
+img {
+    display: block;
+}
+li {
+    list-style: none;
+}
+a {
+    color: #000;
+    text-decoration: none;
+}
+.SP {
+    display: block;
+}
+
+/* セクションスペース */
+.section-space {
+    margin: 64px auto;
+    padding: 0 7% 32px;
+}
+.section-content-space {
+    padding: 64px 7%;
+}
+/* ↓セクションタイトル↓ */
+.section-title {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+}
+.section-title h1 {
+    font-size: 56px;
+    font-family: "Caveat", cursive;
+    font-weight: bold;
+    color: var(--text);
+    margin: 0 auto;
+}
+.section-title_sub {
+    display: flex;
+    margin: 0 auto;
+}
+.section-title_sub p {
+    font-size: 16px;
+    font-weight: nomal;
+    text-align: center;
+    padding: 0 4px;
+}
+.section-title_sub::before, .section-title_sub::after {
+    content: "";
+    display: block;
+    margin: auto 0;
+}
+.section-title_sub::before {
+    width: 115px;
+    height: 30px;
+    background: url(/img/section-deco.png) no-repeat;
+    background-size: contain;
+}
+.section-title_sub::after {
+    width: 115px;
+    height: 30px;
+    background: url(/img/section-deco2.png) no-repeat;
+    background-size: contain;
+}
+/* ↑セクションタイトル↑ */
+
+/* イラスト */
+.illust img {
+    width: 100%;
+}
+
+/* ボタン */
+.btn {
+    display: inline-flex;
+    width: 100%;
+    border-radius: 10px;
+    padding: 32px 24px;
+    line-height: 1;
+    transition: 0.3s;
+    min-width: 200px;
+    justify-content: center;
+    text-align: center;
+    font-size: 20px;
+}
+
+.btn-primary {
+    background-color: var(--secondary);
+    color: #fff;
+}
+.btn-primary:hover {
+    background-color: var(--secondary);
+    color: #fff;
+}
+.btn-primary-line {
+    border: 1px solid var(--secondary);
+    background-color: #fff;
+    color: var(--secondary);
+}
+.btn-primary-line:hover {
+    color: var(--primary);
+}
+
+/* 項目タイトル */
+.item-title h2 {
+    display: block;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    color: var(--text);
+    padding-bottom: 8px;
+    margin-bottom: 24px;
+}
+.item-title h2::after {
+    content: '';
+    width: 100%;
+    height: 3px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: var(--text);
+}
+
+/* ＝＝＝↑共通設定↑＝＝＝ */
+
+/* ヘッダー */
+.site-header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.header-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10vh;
+    background-color: var(--secondary);
+    box-shadow: 0px 5px 5px rgba(0,0,0,0.5), inset -5px -5px 5px rgba(0,0,0,0.2);
+    z-index: 5;
+}
+.header-bar img {
+    width: 100%;
+}
+
+/* 開閉ボタンのスタイル */
+.global-nav-toggler {
+    display: none;
+}
+
+.global-nav-btn {
+    position: fixed;
+    top: 28px;
+    right: 24px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+}
+.global-nav-btn span {
+    display: block;
+    width: 35px;
+    height: 3px;
+    background-color: var(--line);
+    transition: opacity 0.3s;
+}
+.global-nav-btn::before, .global-nav-btn::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 35px;
+    height: 3px;
+    background-color: var(--line);
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    transition: transform 0.3s;
+}
+.global-nav-btn::before {
+    transform: translateY(calc(-50% - 12px));
+}
+.global-nav-btn::after {
+    transform: translateY(calc(-50% + 12px));
+}
+/* ボタン　アニメーション */
+.global-nav-toggler:checked ~ .global-nav-btn span {
+    opacity: 0;
+}
+.global-nav-toggler:checked ~ .global-nav-btn::before {
+    transform: translateY(-50%) rotate(45deg);
+}
+.global-nav-toggler:checked ~ .global-nav-btn::after {
+    transform: translateY(-50%) rotate(-45deg);
+}
+
+/* ナビゲーション */
+.global-nav {
+    display: block;
+    position: fixed;
+    margin-top: 10vh;
+    width: 100%;
+    height: 75vh;
+    padding: clamp(30px,10%,50px);
+    background-color: var(--secondary);
+    box-shadow: inset 10px 10px 10px rgba(225,225,225,0.3), 5px 5px 5px rgba(0,0,0,0.3), inset -5px -5px 5px rgba(0,0,0,0.3);
+    transform: translateX(105%);
+    transition: 0.8s ease-in-out;
+    z-index: 5;
+}
+.global-nav-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 12% 10%;
+    height: 100%;
+    background-color: var(--primary);
+    box-shadow: inset 10px 10px 10px rgba(0,0,0,0.2), inset -10px -10px 10px rgba(225,225,225,0.2), 5px 5px 10px rgba(225,225,225,0.2), -5px -5px 5px rgba(0,0,0,0.2);
+}
+.global-nav-list img {
+    height: 24px;
+}
+.sns-link {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10%;
+}
+.sns-link img {
+    width: 24px;
+    height: 24px;
+}
+.global-nav-leaf {
+    display: block;
+    position: fixed;
+    bottom: -1%;
+    width: 100vw;
+    z-index: 10;
+    transition: 0.8s ease-in-out;
+    transform: translateY(100%);
+}
+.leaf-nav {
+    width: 100%;
+}
+/* ナビゲーション　開閉アニメーション */
+.global-nav-toggler:checked ~ .global-nav {
+    transform: translateX(0%);
+}
+.global-nav-toggler:checked ~ .global-nav-leaf {
+    transform: translateY(0%);
+}
+
+/* メインビュー */
+.main-view {
+    max-width: 600px;
+    padding-top: 128px;
+    margin-bottom: 64px;
+    z-index: 1;
+}
+.main-logo {
+    margin: 32px 0;
+}
+.main-logo img{
+    width: 360px;
+    margin: 0 auto;
+}
+.mv {
+    width: 100%;
+    max-width: 600px;
+}
+.mv img{
+    width: 100%;
+}
+
+/* ＝＝＝↓メイン↓＝＝＝ */
+main {
+    max-width: 600px;
+}
+
+/* ===↓TOPページ↓=== */
+/* コンセプト */
+.concept-main img {
+    width: 100%;
+    margin-bottom: 36px;
+}
+.concept-main h3 {
+    color: var(--text);
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+.concept-main p {
+    font-size: 16px;
+    margin-bottom: 36px;
+}
+
+/* メニュー */
+.menu-main {
+    margin-bottom: 36px;
+}
+.menu-main img {
+    width: 100%;
+    margin-bottom: 36px;
+}
+.menu-main p {
+    font-size: 16px;
+    margin-bottom: 36px;
+}
+
+
+/* テイクアウトデリバリー */
+.takeout {
+    width: 100%;
+    margin-bottom: 64px;
+}
+.takeout img {
+    width: 100%;
+    margin-bottom: 36px;
+}
+.takeout p {
+    margin-bottom: 36px;
+}
+/* 予約・コース */
+.course {
+    width: 100%;
+}
+.course img {
+    width: 100%;
+    margin-bottom: 36px;
+}
+.course p {
+    margin-bottom: 36px;
+}
+.course a {
+    margin-bottom: 36px;
+}
+.course img {
+    width: 100%;
+    margin-bottom: 36px;
+}
+
+/* イベントブログ */
+.event {
+    width: 100%;
+}
+.event img {
+    width: 100%;
+    margin-bottom: 36px;
+}
+.event p {
+    margin-bottom: 36px;
+}
+.event a {
+    margin-bottom: 36px;
+}
+
+/* アクセス */
+.access-space {
+    margin: 64px auto;
+    padding-bottom: 32px;
+}
+.access {
+    width: 100%;
+    padding: 7%;
+}
+.access img {
+    width: 100%;
+    margin-bottom: 36px;
+}
+.access dl {
+    margin-bottom: 24px;
+}
+.access dd {
+    margin-bottom: 16px;
+    border-bottom: dashed 3px var(--line);
+}
+
+/* 注意事項 */
+.notes {
+    border: dotted 5px var(--secondary);
+    padding: 8px;
+    margin: 0 8px;
+}
+.notes ul {
+    padding-left: 24px;
+}
+.notes ul li {
+    list-style: disc;
+}
+/* ===↑TOPページ↑=== */
+
+/* ===↓メニューページ↓=== */
+/* おすすめメニュー */
+.recommend {
+    margin: 40px 0;
+    padding-top: 32px;
+}
+.recommend img {
+    width: 70%;
+    margin: 16px auto;
+    padding: 5%;
+    background-color: #fff;
+    transform: rotate(-15deg);
+    box-shadow: 5px 5px 10px #000;
+}
+.recommend h2 {
+    display: block;
+    position: relative;
+    width: 100%;
+    font-size: 20px;
+    font-weight: normal;
+    margin-top: 40px;
+    margin-bottom: 24px;
+}
+.recommend h2::after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.inbetween {
+    margin: 64px auto;
+    padding: 0 7% 32px;
+}
+.inbetween img {
+    width: 100%;
+}
+/* メニュー一覧 */
+.menuTable {
+    margin: 40px 0;
+    padding-top: 32px;
+}
+.menuTable img {
+    width: 100%;
+}
+.menuTable h2 {
+    display: block;
+    position: relative;
+    width: 100%;
+    font-size: 24px;
+    font-weight: normal;
+    text-align: center;
+    margin-bottom: 24px;
+}
+.menuTable h2::after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: #fff;
+}
+/* ===↑メニューページ↑=== */
+/* ===↓コースページ↓=== */
+/* コース一覧 */
+.course-content {
+    margin: 40px 0;
+}
+.course-content h2 {
+    text-align: center;
+    font-size: 20px;
+    margin: 12px 0;
+}
+.course-content p {
+    display: flex;
+    justify-content: center;
+    width: 300px;
+    margin: 12px auto 24px;
+}
+.course-content table {
+    margin-bottom: 36px;
+}
+.course-content th {
+    width: 20%;
+    font-size: 20px;
+    font-weight: bold;
+    background: var(--secondary);
+    color: #fff;
+    padding: 4px;
+}
+.course-content td {
+    width: 80%;
+    font-size: 16px;
+    font-weight: normal;
+    background: #fff;
+    color: var(--secondary);
+    padding: 4px;
+}
+
+/* お問い合わせTELボタン */
+.course-content a {
+    display: block;
+}
+.TEL {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+/* 注意事項 */
+.course-notes {
+    border: dotted 5px var(--line);
+    padding: 8px;
+    margin: 0 8px;
+}
+
+/* バースデーケーキ */
+.cake {
+    margin: 36px 0;
+}
+.cake h2 {
+    display: block;
+    position: relative;
+    width: 100%;
+    font-size: 20px;
+    font-weight: normal;
+    text-align: center;
+    margin-bottom: 16px;
+}
+.cake h2::after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: var(--secondary);
+}
+.cake img {
+    width: 200px;
+    margin: 16px auto;
+}
+/* ===↑コースページ↑=== */
+/* ===↓イベント＆ブログページ↓=== */
+/* プロフィール */
+.bg-space-black {
+    display: block;
+    width: 100%;
+    height: 72px;
+    background-color: var(--text);
+}
+.blog-profile {
+    padding: 24px 7%;
+}
+.blog-profile h2 {
+    font-size: 20px;
+    font-weight: bold;
+}
+.blog-profile p {
+    color: var(--secondary);
+}
+.profile {
+    display: flex;
+    padding: 24px 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--primary);
+    justify-content: center;
+    align-items: center;
+}
+.profile img {
+    width: 80px;
+    margin-right: 8px;
+}
+
+/* ブログ投稿 */
+.postcard {
+    display: block;
+    width: 340px;
+    padding: 12px;
+    background-color: #fff;
+    margin: 80px auto;
+}
+.postcard span {
+    position: relative;
+    color: var(--text);
+    font-size: 12px;
+    font-weight: bold;
+}
+.postcard-main {
+    width: 90%;
+    margin: 0 auto;
+}
+.postcard-main img {
+    width: 100%;
+}
+.postcard-main_profile {
+    display: flex;
+    width: 270px;
+    padding: 12px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--primary);
+    justify-content: start;
+    align-items: center;
+}
+.postcard-main_profile img {
+    width: 32px;
+    height: 32px;
+    margin: 0 8px 0 0;
+}
+.postcard-main a {
+    font-size: 12px;
+}
+.postcard-btn {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin: 12px 0;
+}
+.postcard-btn_action {
+    display: flex;
+}
+.postcard-btn_action img {
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+}
+
+.postcard-btn_mark img {
+    width: 24px;
+    height: 24px;
+}
+
+.postcard-main h5 {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--secondary);
+}
+.postcard-main span {
+    font-size: 12px;
+    color: var(--secondary);
+    letter-spacing: normal;
+    margin: 8px 0;
+}
+.postcard a {
+    display: flex;
+    justify-content: end;
+    color: var(--primary);
+    font-size: 12px;
+
+}
+/* ===↑イベント＆ブログページ↑=== */
+/* 採用情報 */
+.recruitment-main {
+    margin-top: 40px;
+}
+.recruitment-main h2{
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 24px;
+}
+
+/* ＝＝＝↑メイン↑＝＝＝ */
+
+/* ＝＝＝↓フッター↓＝＝＝ */
+.site-footer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--primary);
+}
+.footer-main {
+    width: 310px;
+    margin: 64px auto;
+}
+.footer-main img {
+    width: 310px;
+    height: 300px;
+    margin-bottom: 36px;
+}
+.footer-main p {
+    color: #fff;
+}
+.footer-main small {
+    color: #fff;
+    margin: 0 auto;
+}
+.footer-bar {
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    height: 100px;
+    background-color: var(--secondary);
+    box-shadow: 0px -5px 5px rgba(0,0,0,0.3);
+}
+.footer-bar img{
+    width: 100%;
+    position: relative;
+    left: 0;
+    bottom: 0;
+}
+/* ＝＝＝↑フッター↑＝＝＝ */
+
+/* ＝＝＝↓共通設定↓＝＝＝ */
+/* PCディスプレイnone */
+.PC {
+    display: none;
+}
+
+/* ボタン矢印画像修正 */
+.btn img {
+    width: 24px;
+    margin: 0 8px;
+}
+
+/* 背景色の変更 */
+.bg-black {
+    background-color: var(--text);
+    color: #fff;
+}
+.bg-black p {
+    color: #fff;
+}
+.bg-black h2 {
+    color: #fff;
+}
+.bg-black h2::after {
+    background-color: #fff;
+}
+/* ＝＝＝↑共通設定↑＝＝＝ */
+
+
+/* ===PC=== */
+@media screen and (min-width: 600px){
+    .SP {
+        display: none;
+    }
+    .PC {
+        display: block;
+    }
+
+    .global-nav {
+        width: 30%;
+        max-height: 550px;
+        margin-top: 18vh;
+        transform: translateX(18%);
+    }
+    .global-nav-list img {
+        height: 24px;
+    }
+
+    .global-nav-leaf {
+        display: block;
+        width: 1px;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        transform: translateY(0%);
+    }
+    .leaf-nav-top {
+        position: fixed;
+        width: 35vw;
+        top: 0;
+        left: 0;
+    }
+    .leaf-nav-left {
+        position: fixed;
+        height: 100vh;
+        top: 0;
+        left: 0;
+    }
+    .leaf-nav-bottom {
+        position: fixed;
+        width: 35vw;
+        bottom: 0;
+        left: 0;
+    }
+
+    .main-view {
+        max-width: none;
+        width: 30vw;
+        padding-top: 0;
+        margin-left: 35vw;
+        margin-bottom: 0;
+    }
+    .mv {
+        position: fixed;
+        width: 35vw;
+        max-width: none;
+        top: 15%;
+        right: 0;
+        
+    }
+    .leaf-view {
+        position: fixed;
+        width: 35vw;
+        height: 100vh;
+        top: 0;
+        right: 0;
+        z-index: 10;
+    }
+
+    
+    /* ＝＝＝PCメイン＝＝＝ */
+    main {
+        width: 30vw;
+        max-width: none;
+        margin-left: 35vw;
+    }
+
+    .site-footer {
+        width: 30vw;
+        margin-left: 35vw;
+    }
+}
